@@ -6,8 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends Activity {
@@ -60,7 +63,11 @@ public class MainActivity extends Activity {
             Canvas canvas = new Canvas(bitmap);
             textView.draw(canvas);
 
+            // simulate a lengthy operation
+            // this will throw a CalledFromWrongThreadException
+            SystemClock.sleep(TimeUnit.SECONDS.toMillis(7));
             ASyncView2BitmapListener.onComplete(bitmap);
+
         }
     }
 
